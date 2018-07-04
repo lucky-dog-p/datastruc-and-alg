@@ -19,27 +19,31 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
     public int size(){
         return N;
     }
-    private resize(){
-        Item[] temp = (Item[]) new Object[2*this.array.length];
-        for(int i = 0; i < this.array.length;i++){
+    private resize(int max){
+        Item[] temp = (Item[]) new Object[max];
+        for(int i = 0; i < N;i++){
             temp[i] = this.array[i];
         }
         this.array = temp;
     }
 
     public void push(Item value){
-        if(size() >= this.array.length-1){
-            resize();
+        if(N = this.array.length){
+            resize(2*this.array.length);
         }
-        this.array[size()+1] = value;
+        this.array[N++] = value;
     }
 
     public Item pop(){
-        
-        return this.array[size()];
+        temp = this.array[--N];
+        a[N] = null;
+        if(N > 0&&N == this.array.length/4){
+            resize(this.array.length/2);
+        }
+        return this.array[N];
     }
 
-    public Iterator iterator(){
+    public Iterator<Item> iterator(){
         return new StackIterator();
     }
 
@@ -47,5 +51,6 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         private int N;
         public boolean hasNext(){return N >0;}
         public Item Next(){return array[--N];}
+        public void remove(){}
     }
 }
