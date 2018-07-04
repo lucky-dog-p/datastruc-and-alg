@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
+            "name": "Debug (Launch)-ResizingArrayStack",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
@@ -14,12 +14,12 @@
             "mainClass": "algorithms4th.ResizingArrayStack",
             "args": ""
         },
-        // {
-        //     "type": "java",
-        //     "name": "Debug (Attach)",
-        //     "request": "attach",
-        //     "hostName": "localhost",
-        //     "port": 0
-        // }
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 0
+        }
     ]
 }
