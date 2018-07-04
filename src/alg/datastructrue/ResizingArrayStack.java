@@ -1,25 +1,19 @@
 package alg.datastructrue;
 import java.util.Iterator;
 /**
- * 
- * public
- *      push
- *      pop
- *      isEmpty
- *      size
- *      iterator
- * private
- *      resizing
- *      
- * 
+ * This is a Stack class that using array to implemment.
+ * @author  panguangze
  */
 public class ResizingArrayStack<Item> implements Iterable<Item>{
     private Item[] array = (Item[]) new Object[1];
     private int N = 0;
-
+    /**
+     * @return  the size of stack
+     */
     public int size(){
         return N;
     }
+    /*Resizing the array */
     private void resize(int max){
         Item[] temp = (Item[]) new Object[max];
         for(int i = 0; i < N;i++){
@@ -28,6 +22,10 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         this.array = temp;
     }
 
+    /**
+     * Push the value into the stack.
+     * @param  value The value you want add to the stack
+     */
     public void push(Item value){
         if(N == this.array.length){
             resize(2*this.array.length);
@@ -35,6 +33,10 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         this.array[N++] = value;
     }
 
+    /**
+     * Pop the value from the stack
+     * @return  The last value you push into the stack
+     */
     public Item pop(){
         Item temp = this.array[--N];
         array[N] = null;
@@ -44,6 +46,9 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         return temp;
     }
 
+    /**
+     * @return  The iterator of the stack
+     */
     public Iterator<Item> iterator(){
         return new StackIterator();
     }
@@ -53,9 +58,5 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         public boolean hasNext(){return N >0;}
         public Item next(){return array[--N];}
         public void remove(){}
-    }
-    public static void main(String[] args) {
-        ResizingArrayStack<Integer> rs = new ResizingArrayStack<Integer>();
-        rs.push(3);
     }
 }
