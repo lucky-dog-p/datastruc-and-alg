@@ -6,6 +6,19 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Debug (Launch)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "test.TestStack",
+            "args": "",
+            "classPaths": [
+                "${workspaceFolder}/bin"
+            ]
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch)-ResizingArrayStack",
             "request": "launch",
             "cwd": "${workspaceFolder}",
