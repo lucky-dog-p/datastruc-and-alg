@@ -6,14 +6,26 @@ package alg.datastructrue;
  */
 public abstract class Stack<Item> implements Iterable<Item>{
 
-    private int N;
-    public int size(){return N;};
+     /**
+     * return size of the stack.
+     * @return The size of the stack
+     */
+    public abstract int size();
+
+    /**
+     * Push the value into the stack.
+     * @param  value The value you want add to the stack
+     */
     public abstract void push(Item value);
+
+    /**
+     * Pop the value from the stack
+     * @return  The last value you push into the stack
+     */
     public abstract Item pop();
+
     /**
      * @return  If the stack is empty
      */
-    public boolean isEmpty(){
-        return N==0;
-    }
+    public abstract boolean isEmpty();
 }

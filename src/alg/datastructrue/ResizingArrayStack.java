@@ -4,15 +4,20 @@ import java.util.Iterator;
  * This is a Stack class that using array to implemment.
  * @author  panguangze
  */
-public class ResizingArrayStack<Item> implements Iterable<Item>{
+public class ResizingArrayStack<Item> extends Stack<Item>{
     private Item[] array = (Item[]) new Object[1];
     private int N = 0;
-    /**
-     * @return  the size of stack
-     */
+
+    @Override
     public int size(){
         return N;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return N==0;
+    }
+
     /*Resizing the array */
     private void resize(int max){
         Item[] temp = (Item[]) new Object[max];
@@ -22,10 +27,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         this.array = temp;
     }
 
-    /**
-     * Push the value into the stack.
-     * @param  value The value you want add to the stack
-     */
+    @Override
     public void push(Item value){
         if(N == this.array.length){
             resize(2*this.array.length);
@@ -33,10 +35,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
         this.array[N++] = value;
     }
 
-    /**
-     * Pop the value from the stack
-     * @return  The last value you push into the stack
-     */
+    @Override
     public Item pop(){
         Item temp = this.array[--N];
         array[N] = null;
@@ -47,16 +46,27 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
     }
 
     /**
-     * @return  The iterator of the stack
+     * @return  An iterator of the stack
      */
+    @Override
     public Iterator<Item> iterator(){
         return new StackIterator();
     }
 
     private class StackIterator implements Iterator<Item>{
-        private int N;
-        public boolean hasNext(){return N >0;}
-        public Item next(){return array[--N];}
+        private int i = N;
+
+        @Override
+        public boolean hasNext(){
+            return i >0;
+        }
+
+        @Override
+        public Item next(){
+            return array[--i];
+        }
+
+        @Override
         public void remove(){}
     }
 }
