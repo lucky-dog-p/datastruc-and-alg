@@ -1,4 +1,4 @@
-package algorithms4th;
+package alg.datastructrue;
 import java.util.Iterator;
 /**
  * 
