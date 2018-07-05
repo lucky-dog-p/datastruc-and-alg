@@ -1,4 +1,4 @@
-package alg.datastructrue;
+package alg4th.datastrucs;
 
 /**
  * This is the abstract Stack class.

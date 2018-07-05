@@ -1,4 +1,4 @@
-package alg.datastructrue;
+package alg4th.datastrucs;
 import java.util.Iterator;
 /**
  * This is a Stack class that using array to implemment.
