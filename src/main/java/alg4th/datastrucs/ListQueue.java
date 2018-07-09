@@ -8,49 +8,65 @@ import java.util.Iterator;
  */
 public class ListQueue<Item> extends Queue<Item>{
 
-    private ValueNode rootNode;
+    private ValueNode<Item> headNode;
+    private ValueNode<Item> tailNode;
     private int N;
 
     @Override
     public int size() {
-        return 0;
+        return N;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return tailNode == null;
     }
 
     @Override
     public void push(Item value) {
-        
+        ValueNode<Item> temp = new ValueNode<Item>(value);
+        if(headNode == tailNode){
+            tailNode = temp;
+            headNode = temp;
+            N = 1;
+            return;
+        }
+        headNode = headNode.next;
+        N++;
     }
 
     @Override
     public Item pop() {
-        return null;
+        if(tailNode == null){
+            return null;
+        }
+        Item temp = tailNode.value;
+        tailNode = tailNode.next;
+        return temp;
     }
 
     @Override
     public Iterator<Item> iterator() {
-        return null;
+        return new ListQueueIterator();
     }
 
     private class ListQueueIterator implements Iterator<Item>{
 
+        private ValueNode<Item> currentTail = tailNode;
         @Override
         public boolean hasNext() {
-            return false;
+            return currentTail != null;
         }
 
         @Override
         public Item next() {
-            return null;
+            Item temp = currentTail.value;
+            currentTail = currentTail.next;
+            return temp;
         }
 
         @Override
         public void remove() {
-            Iterator.super.remove();
         }
     }
 }
