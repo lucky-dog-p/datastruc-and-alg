@@ -19,25 +19,21 @@ public class QuickUnionUF extends UnionFind{
 
     @Override
     public void union(int p, int q) {
-        int pId = id[p];
-        int qId = id[q];
+        int pRoot = find(p);
+        int qRoot = find(q);
 
-        if(pId == qId) return;
-        for(int i = 0;i < id.length;i++){
-            if(id[i] == pId) id[i] = qId;
-        }
-        /*The number of components  reduce 1*/
+        if(pRoot == qRoot) return;
+        id[pRoot] = qRoot;
         count--;
     }
 
     @Override
     public int find(int p) {
-        return id[p];
-    }
+        int temp = p;
+        while(p != id[p]) p = id[p];
 
-    @Override
-    public boolean connected(int p, int q) {
-        return find(p) == find(q);
+        while()
+        return p;
     }
 
     @Override

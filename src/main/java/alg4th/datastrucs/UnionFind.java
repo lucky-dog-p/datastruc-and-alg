@@ -22,7 +22,9 @@ public abstract class UnionFind {
      * if the p and q is connected.
      * @return  whether p and q is connected
      */
-    public abstract boolean connected(int p, int q);
+    public boolean connected(int p, int q){
+        return find(p) == find(q);
+    }
     /**
      * number of components
      * @return number of components in the UF set
