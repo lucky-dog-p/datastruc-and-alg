@@ -24,14 +24,12 @@ public class ListQueue<Item> extends Queue<Item>{
 
     @Override
     public void push(Item value) {
-        ValueNode<Item> temp = new ValueNode<Item>(value);
-        if(headNode == tailNode){
-            tailNode = temp;
-            headNode = temp;
-            N = 1;
-            return;
-        }
-        headNode = headNode.next;
+        ValueNode<Item> oldHead = headNode; 
+        headNode = new ValueNode<Item>(value);
+        if(isEmpty())
+            tailNode = headNode;
+        else
+            oldHead.next = headNode;
         N++;
     }
 

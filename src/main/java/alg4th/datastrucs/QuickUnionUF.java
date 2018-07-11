@@ -1,7 +1,8 @@
 package alg4th.datastrucs;
 
 /**
- * QuickUnionUF
+ * QuickUnionUF with path compression.
+ * @author  panguangze
  */
 public class QuickUnionUF extends UnionFind{
 
@@ -32,7 +33,12 @@ public class QuickUnionUF extends UnionFind{
         int temp = p;
         while(p != id[p]) p = id[p];
 
-        while()
+        int j;
+        while(temp!=p){
+            j = id[temp];
+            id[temp] = p;
+            temp = j;
+        }
         return p;
     }
 
