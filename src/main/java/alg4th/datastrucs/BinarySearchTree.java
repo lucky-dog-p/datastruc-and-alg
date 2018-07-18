@@ -1,8 +1,5 @@
 package alg4th.datastrucs;
 
-import javax.lang.model.util.ElementScanner6;
-import javax.swing.text.AbstractDocument.LeafElement;
-
 /**
  * BinarySearchTree,A sample binary search tree.
  * @author  panguangze
