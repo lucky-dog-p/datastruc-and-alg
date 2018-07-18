@@ -48,6 +48,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
 
     }
 
+    /**
+     * Get the value of the key.
+     * @return  value that the key correspond
+     */
     public Value get(Key key){
         Node temp = rootNode;
         while(temp != null){
@@ -64,14 +68,26 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return temp.val;
     }
 
+    /**
+     * If the BST contains the key.
+     * @return  a boolean
+     */
     public boolean contains(Key key){
         return get(key) == null;
     }
 
+    /**
+     * If the BST is empty.
+     * @return  if the BST is empty return true
+     */
     public boolean isEmpty(){
         return rootNode == null;
     }
 
+    /**
+     * Get the size of the BST.
+     * @return  the size of the size
+     */
     public int size(){
         return size(rootNode);
     }
@@ -81,6 +97,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return x.N;
     }
 
+    /**
+     * Get the min key of the BST.
+     * @return  A minumum key of the BST
+     */
     public Key min(){
         return min(rootNode).key;
     }
@@ -90,6 +110,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return min(x.left); 
     }
 
+    /**
+     * Get the max key of the BST.
+     * @return  A maxumum key of the BST
+     */
     public Key max(){
         return max(rootNode).key;
     }
@@ -99,6 +123,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return max(x.right);
     }
 
+    /**
+     * Get the maxumum key that less than given key.
+     * @return  a key type
+     */
     public Key floor(Key key){
         Node x = floor(rootNode, key);
         if(x == null) return null;
@@ -115,6 +143,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return x;
     }
 
+    /**
+     * Get the minumum key that large than given key.
+     * @return  a key type
+     */
     public Key ceiling(Key key){
         Node x = ceiling(rootNode, key);
         if(x == null) return null;
