@@ -163,6 +163,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return x;
     }
 
+    /**
+     * Get the rank of the key.
+     * @return  the number of the keys that smaller than the key
+     */
     public int rank(Key key){
         return rank(rootNode,key);
     }
@@ -175,6 +179,10 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         else                return size(x);
     }
 
+    /**
+     * Get the key of rank k.
+     * @return  the key that place rank key
+     */
     public Key select(int k){
         return select(rootNode,k).key;
     }
@@ -191,6 +199,9 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         else            return x;
     }
 
+    /**
+     * Delete the min key of the BST.
+     */
     public void deleteMin(){
         rootNode = deleteMin(rootNode);
     }
@@ -202,6 +213,9 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return x;
     }
 
+    /**
+     * Delete the max key of the BST.
+     */
     public void deleteMax(){
         rootNode = deleteMax(rootNode);
     }
@@ -213,6 +227,9 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return x;
     }
 
+    /**
+     * Delete a specific key.
+     */
     public void delete(Key key){
         delete(rootNode,key);
     }
@@ -233,16 +250,28 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         return x;
     }
 
+    /**
+     * Get the numbers of key between lo and hi
+     * @return  A number
+     */
     public int size(Key lo,Key hi){
         return rank(hi) - rank(lo);
     }
 
+    /**
+     * Get a Iterable object of the BST that contains keys between lo and hi.
+     * @return  A queue
+     */
     public Iterable<Key> keys(Key lo,Key hi){
         Queue<Key> queue = new ListQueue<Key>();
         keys(queue, lo, hi, rootNode);
         return queue;
     }
 
+    /**
+     * Get a Iterable object of the BST that contains all the keys.
+     * @return  A queue
+     */
     public Iterable<Key> keys(){
         return keys(min(), max());
     }
