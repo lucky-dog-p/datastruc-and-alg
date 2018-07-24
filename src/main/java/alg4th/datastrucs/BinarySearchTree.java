@@ -195,7 +195,7 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         // else                return x.key;
         int temp = size(x.left);
         if(temp > k)    return select(x.left, k);
-        if(temp < k)    return select(x, k - temp -1);
+        if(temp < k)    return select(x.right, k - temp -1);
         else            return x;
     }
 
@@ -231,7 +231,7 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
      * Delete a specific key.
      */
     public void delete(Key key){
-        delete(rootNode,key);
+        rootNode = delete(rootNode,key);
     }
 
     private Node delete(Node x,Key key){
@@ -243,6 +243,7 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
             if(x.right == null) return x.left;
             if(x.left == null)  return x.right;
             Node temp = x;
+            x = min(x.right);
             x.right = deleteMin(temp.right);
             x.left = temp.left;
         }
@@ -282,7 +283,7 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value>{
         int cmphi = hi.compareTo(x.key);
         //if cmplo is < 0 that means x.left-children-tree may have some nodes between lo and hi
         if(cmplo < 0)   keys(queue,lo,hi,x.left);
-        if(cmplo >0 && cmphi < 0)   queue.push(x.key);
+        if(cmplo >= 0 && cmphi <= 0)   queue.push(x.key);
         if(cmphi > 0)   keys(queue,lo,hi,x.right);
     }
 }
