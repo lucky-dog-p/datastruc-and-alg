@@ -49,9 +49,9 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
     private void flipColor(Node h){
-        h.color = RED;
-        h.left.color = BLACK;
-        h.right.color = BLACK;
+        h.color = !h.color;
+        h.left.color = !h.left.color;
+        h.right.color = !h.right.color;
     }
 
     public void put(Key key,Value val){
@@ -100,7 +100,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         if(cmp > 0)     x.right = delete(x.right, key);
         else if(cmp < 0)    x.left = delete(x.left, key);
         else{
-
+            
         }
     }
 
@@ -195,10 +195,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     private Node deleteMin(Node x){
-        if(x.left==null)    return x.right;
-        x.left = deleteMin(x.left);
-        x.N = size(x.left) + size(x.right) +1;
-        return x;
+       
     }
 
     public void deleteMax(){
@@ -206,10 +203,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     private Node deleteMax(Node x){
-        if(x.right == null) return x.left;
-        x.right = deleteMax(x.right);
-        x.N = size(x.left) + size(x.right) +1;
-        return x;
+        
     }
 
     public int size(Key lo,Key hi){
