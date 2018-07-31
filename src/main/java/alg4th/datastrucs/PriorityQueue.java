@@ -1,14 +1,6 @@
 package alg4th.datastrucs;
 
 /**
-<<<<<<< HEAD
- * PriorityQueue,The abstract super class of queues.<br>
- * @author  panguangze
- */
-public abstract class PriorityQueue {
-
-    public abstract void insert();
-=======
  * PriorityQueue,A datastructrue that always get the min or max value.<br>
  * the Key must implement Comparable interface
  * @author  panguangze
@@ -32,5 +24,4 @@ public abstract class PriorityQueue<Key extends Comparable<Key>>{
      * @return  the number of key in the PQ
      */
     public abstract int size();
->>>>>>> 3942ea52283f42edc11e1783bd30e87d03d8654e
 }
