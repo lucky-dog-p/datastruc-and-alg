@@ -1,7 +1,7 @@
 package alg4th.datastrucs;
 
 /**
- * RedBlackTree，Implement the 2-3 node tree by RB tree.
+ * RedBlackTree???Implement the 2-3 node tree by RB tree.
  * @author  panguangze
  */
 public class RedBlackTree<Key extends Comparable<Key>,Value> {
