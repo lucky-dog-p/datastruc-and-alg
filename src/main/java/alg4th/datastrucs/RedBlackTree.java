@@ -48,10 +48,40 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         h.N = 1 + size(h.right) + size(h.left);
         return h;
     }
+
+    private Node moveRedLeft(Node h){
+        flipColor(h);
+        //assert if h.right is a 3-node. if it is, move h to h.left and move one of h.right to h
+        if (isRed(h.left.left)) { 
+            h = rotateRight(h);
+            flipColor(h);
+        }
+        return h;
+    }
+
+    private Node moveRedRight(Node h){
+        flipColor(h);
+        //assert if h.right is a 3-node. if it is, move h to h.left and move one of h.right to h
+        if (isRed(h.right.left)) { 
+            h = rotateLeft(h);
+            flipColor(h);
+        }
+        return h;
+    }
+
     private void flipColor(Node h){
         h.color = !h.color;
         h.left.color = !h.left.color;
         h.right.color = !h.right.color;
+    }
+
+    private Node balance(Node h){
+        if(isRed(h.right) && !isRed(h.left))    h = rotateLeft(h);
+        if(isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
+        if(isRed(h.right) && isRed(h.left))     flipColor(h);
+
+        h.N = size(h.left) + size(h.right) + 1;
+        return h;
     }
 
     public void put(Key key,Value val){
@@ -191,11 +221,19 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     public void deleteMin(){
+        if(!isRed(rootNode.left) && isRed(rootNode.right))
+            rootNode.color = RED;
         rootNode = deleteMin(rootNode);
+        if(!isEmpty())
+            rootNode.color = BLACK;
     }
 
     private Node deleteMin(Node x){
-       
+       if(!isRed(x.left) && !isRed(x.left.left)){
+           x = moveRedLeft(x);
+       }
+       x.left = deleteMin(x.left);
+       return balance(x);
     }
 
     public void deleteMax(){
@@ -203,7 +241,16 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     private Node deleteMax(Node x){
-        
+        if(isRed(x.left))
+            x = rotateRight(x);
+        if(x.right == null)
+            return null;
+
+        if(!isRed(x.right) && !isRed(x.right.left)){
+            x = moveRedRight(x);
+        }
+        x.right = deleteMax(x.right);
+        return balance(x);
     }
 
     public int size(Key lo,Key hi){
