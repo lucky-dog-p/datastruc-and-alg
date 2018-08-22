@@ -22,11 +22,13 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         }
     }
     
+    //判断是否为红色节点
     private boolean isRed(Node x){
         if(x == null)   return false;
         return x.color == RED;
     }
 
+    //左旋操作
     private Node rotateLeft(Node h){
         Node x = h.right;
         h.right = x.left;
@@ -38,6 +40,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
 
+    //右旋操作
     private Node rotateRight(Node h){
         Node x = h.left;
         h.left = x.right;
@@ -49,6 +52,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
 
+    //使左节点变成红色
     private Node moveRedLeft(Node h){
         flipColor(h);
         //assert if h.right is a 3-node. if it is, move h to h.left and move one of h.right to h
@@ -59,6 +63,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
 
+    //使右节点变成红色
     private Node moveRedRight(Node h){
         flipColor(h);
         //assert if h.right is a 3-node. if it is, move h to h.left and move one of h.right to h
@@ -69,12 +74,14 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
 
+    //颜色反转
     private void flipColor(Node h){
         h.color = !h.color;
         h.left.color = !h.left.color;
         h.right.color = !h.right.color;
     }
 
+    //修正颜色
     private Node balance(Node h){
         if(isRed(h.right) && !isRed(h.left))    h = rotateLeft(h);
         if(isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
@@ -84,6 +91,9 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
 
+    /**
+     * Put the key and value pair into the tree.
+     */
     public void put(Key key,Value val){
         rootNode = put(rootNode,key, val);
         rootNode.color = BLACK;
@@ -104,6 +114,10 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return h;
     }
 
+    /**
+     * Get the value by key.
+     * @return the value 
+     */
     public Value get(Key key){
         Node temp = rootNode;
         while(temp != null){
@@ -120,10 +134,13 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return temp.val;
     }
 
+    /**
+     * Delete the node by key.
+     */
     public void delete(Key key){
         if(!isRed(rootNode.left) && !isRed(rootNode.right))
             rootNode.color = RED;
-        rootNode = delete(rootNode);
+        rootNode = delete(rootNode,key);
         if(!isEmpty())
             rootNode.color = BLACK;
     }
@@ -153,14 +170,26 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return balance(x);
     }
 
+    /**
+     * If the tree contains the key.
+     * @return A bool value,if true,contains the key
+     */
     public boolean contains(Key key){
         return get(key) == null;
     }
 
+    /**
+     * If the tree is empty
+     * @return A bool value,if true,the tree is empty
+     */
     public boolean isEmpty(){
         return size() == 0;
     }
 
+    /**
+     * Get the size of the tree.
+     * @return the number of nodes in the tree
+     */
     public int size(){
         return size(rootNode);
     }
@@ -169,6 +198,11 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         if(x == null)   return 0;
         return size(x.left) + size(x.right) +1;
     }
+
+    /**
+     * Get the min key of the tree.
+     * @return The minumum key 
+     */
     public Key min(){
         return min(rootNode).key;
     }
@@ -178,6 +212,10 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return min(x.left);
     }
 
+    /**
+     * Geth the max key of the tree
+     * @return The maximum key
+     */
     public Key max(){
        return max(rootNode).key;
     }
@@ -187,6 +225,10 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return max(x.right);
     }
 
+    /**
+     * Get the largest key that is smaller than the given key.
+     * @return the largest that is smaller than the given key
+     */
     public Key floor(Key key){
         return floor(rootNode,key).key;
     }
@@ -201,6 +243,10 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return x;
     }
 
+    /**
+     * Get the smallest key that is larger than the given key.
+     * @return the samllest key that is larget than the given key
+     */
     public Key ceiling(Key key){
         return ceiling(rootNode,key).key;
     }
@@ -215,6 +261,10 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return x;
     }
 
+    /**
+     * How many keys that is less than the gieven key.
+     * @return the number of keys that is less than the given key
+     */
     public int rank(Key key){
         return  rank(rootNode,key);
     }
@@ -227,6 +277,10 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         else                return size(x);
     }
 
+    /**
+     * Get the key by rank k
+     * @return the key rank k in the tree
+     */
     public Key select(int k){
         return select(rootNode,k).key;
     }
@@ -239,6 +293,9 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return x;  
     }
 
+    /**
+     * Delete the minimum key of the tree.
+     */
     public void deleteMin(){
         if(!isRed(rootNode.left) && !isRed(rootNode.right))
             rootNode.color = RED;
@@ -255,6 +312,9 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
        return balance(x);
     }
 
+    /**
+     * Delete the maximum key of the tree.
+     */
     public void deleteMax(){
         if(!isRed(rootNode.left) && !isRed(rootNode.right))
             rootNode.color = RED;
@@ -276,16 +336,28 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         return balance(x);
     }
 
+    /**
+     * Get the number of the keys that between lo and hi.
+     * @return the number of the keys
+     */
     public int size(Key lo,Key hi){
         return rank(lo) - rank(hi);
     }
 
+    /**
+     * Get an iterator of the keys that between lo an hi.
+     * @return An iterator
+     */
     public Iterable<Key> keys(Key lo,Key hi){
         Queue<Key> queue = new ListQueue<Key>();
         keys(rootNode, queue, lo, hi);
         return queue;
     }
 
+    /**
+     * Get an iterator of keys in the tree.
+     * @return An iterator
+     */
     public Iterable<Key> keys(){
         Queue<Key> queue = new ListQueue<Key>();
         keys(rootNode, queue, min(), max());
