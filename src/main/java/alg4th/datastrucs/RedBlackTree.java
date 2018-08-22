@@ -121,17 +121,36 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     public void delete(Key key){
-
+        if(!isRed(rootNode.left) && !isRed(rootNode.right))
+            rootNode.color = RED;
+        rootNode = delete(rootNode);
+        if(!isEmpty())
+            rootNode.color = BLACK;
     }
 
     private Node delete(Node x,Key key){
-        if(x == null)   return null;
         int cmp = key.compareTo(x.key);
-        if(cmp > 0)     x.right = delete(x.right, key);
-        else if(cmp < 0)    x.left = delete(x.left, key);
-        else{
-            
+        //如果要删除的节点在左边，那么直接递归的删除左边
+        if(cmp < 0){
+            if(!isRed(x.left) && !isRed(x.left.left))
+                x = moveRedLeft(x);
+            x.left = delete(x.left, key);
+        }else{//在往右删除和找到它之前我们要保证右边的节点都不是2节点
+            if(isRed(x.left))
+                x = rotateRight(x);
+            if(cmp==0 && x.right==null)
+                return null;
+            if(!isRed(x.right) && !isRed(x.right.left))
+                x = moveRedRight(x);
+            if(cmp==0){
+                Node temp = min(x.right);
+                x.key = temp.key;
+                x.val = temp.val;
+                x.right = deleteMin(x.right);
+            }else
+                x.right = delete(x.right, key);
         }
+        return balance(x);
     }
 
     public boolean contains(Key key){
@@ -221,7 +240,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     public void deleteMin(){
-        if(!isRed(rootNode.left) && isRed(rootNode.right))
+        if(!isRed(rootNode.left) && !isRed(rootNode.right))
             rootNode.color = RED;
         rootNode = deleteMin(rootNode);
         if(!isEmpty())
