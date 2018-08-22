@@ -237,7 +237,11 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
     }
 
     public void deleteMax(){
-
+        if(!isRed(rootNode.left) && !isRed(rootNode.right))
+            rootNode.color = RED;
+        rootNode = deleteMax(rootNode);
+        if(!isEmpty())
+            rootNode.color = BLACK;
     }
 
     private Node deleteMax(Node x){
